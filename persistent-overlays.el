@@ -26,13 +26,13 @@
 ;;
 ;; Bugs should be reported on the github issues page:
 ;;   https://github.com/mneilly/Emacs-Persistent-Overlays/issues
-;; 
+;;
 ;; The goal for persistent-overlays is to maintain persistent overlays
 ;; between Emacs sessions.  It has been tested with hideshow and
 ;; outline modes on Linux, Mac OS X and Windows.  However, this version
 ;; should be considered beta software and it has not been previously
 ;; released.
-;; 
+;;
 ;; Overlays are stored in ~/.emacs-pov by default.  There are several
 ;; customizable variables which allow a user to change the file naming
 ;; convention and the storage location of the overlay files.
@@ -165,7 +165,7 @@ loading and merging."
 	(with-current-buffer tbuf
 	  ;; only keep elisp code that is in the expected format
 	  (insert-file-contents file)
-	  (keep-lines "(let ((tovly (make-overlay [[:digit:]]+ [[:digit:]]+)) (tplist '(.*?))) (while tplist (let ((tp (car tplist)) (tpv (cadr tplist))) (overlay-put tovly tp tpv)) (setq tplist (cddr tplist))))")
+	  (keep-lines "(let ((tovly (make-overlay [[:digit:]]+ [[:digit:]]+)) (tplist '(.*\n*.*?))) (while tplist (let ((tp (car tplist)) (tpv (cadr tplist))) (overlay-put tovly tp tpv)) (setq tplist (cddr tplist))))")
 	  )
       (when (char-or-string-p file)
 	(progn
@@ -295,7 +295,7 @@ values as an existing overlay only a single overlay is retained."
 		(setq merged t))
 	    (when (char-or-string-p ovfile) (message "File %s does not exist." ovfile)))))
       merged)))
-  
+
 
 ;; ===== load functions =======================================================
 
